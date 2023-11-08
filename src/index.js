@@ -33,3 +33,20 @@ cancelProjectBtn.addEventListener("click", (event) => {
 });
 
 /* Create new project DOM manipulation ends */
+
+/* Dislay projects in sidebar DOM manipulation starts */
+
+const projectTabContainer = document.querySelector(".project-tab-container");
+
+createProjectBtn.addEventListener("click", (event) => {
+    event.preventDefault(); // Do not submit form
+    projectTabContainer.textContent = "";
+    for (let project of projects) {
+        let projectTab = document.createElement("div");
+        projectTab.textContent = project.title;
+        projectTabContainer.appendChild(projectTab);
+    }
+});
+
+/* Display projects in sidebar DOM manipulation ends */
+
