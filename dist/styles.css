@@ -66,4 +66,16 @@ html {
 
 body {
     min-height: 100vh;
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	grid-template-areas: 
+		"sidebar todo-container";
+}
+
+body div.sidebar {
+	grid-area: "sidebar";
+}
+
+body div.todo-container {
+	grid-area: "todo-container";
 }
