@@ -40,6 +40,11 @@ cancelProjectBtn.addEventListener("click", (event) => {
 const projectTabContainer = document.querySelector(".project-tab-container");
 const todoContainer = document.querySelector(".todo-container");
 
+const newToDoDialog = document.querySelector("#newToDoDialog");
+
+const createToDoBtn = newToDoDialog.querySelector("#createToDoButton");
+const cancelToDoBtn = newToDoDialog.querySelector("#cancelToDoButton");
+
 createProjectBtn.addEventListener("click", (event) => {
     event.preventDefault(); // Do not submit form
     projectTabContainer.textContent = "";
@@ -64,10 +69,28 @@ createProjectBtn.addEventListener("click", (event) => {
             // and add todo to corresponding project
             newToDoBtn.addEventListener("click", (event) => {
                 const projectLoc = event.target.getAttribute("data-project-number");
-                // as a placeholder for a todo, add digit 1 to the project's
-                // list of todos
-                projects[projectLoc].todos.push(1);
-                console.log(`${projects[projectLoc].todos}`);
+                // Display the new ToDo modal
+                newToDoDialog.showModal();
+                // create event listener
+                // get new todo information in event of create
+                createToDoBtn.addEventListener("click", (event) => {
+                    event.preventDefault(); // Do not submit form
+                    let newToDoTitle = document.getElementById("new-todo-title").value;
+                    // as a placeholder for a todo factory, add digit 1 to the project's todo list
+                    projects[projectLoc].todos.push(1);
+                    let newToDoTitleField = document.getElementById("new-todo-title");
+                    newToDoTitleField.value = "";
+                    newToDoDialog.close();
+                });
+                // create an event listener
+                // cancel new todo in case of pushing cancel
+                cancelToDoBtn.addEventListener("click", (event) => {
+                    event.preventDefault(); // do not submit form
+                    let newToDoTitleField = document.getElementById("new-todo-title");
+                    newToDoTitleField.value = "";
+                    newToDoDialog.close();
+                });
+                console.log(projects);
             });
 
             todoContainer.appendChild(newToDoBtn);
