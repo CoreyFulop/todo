@@ -6,7 +6,22 @@
         <link rel="stylesheet" href="styles.css">
     <script defer src="bundle.js"></script></head>
     <body>
-        <div class="sidebar"></div>
+        <div class="sidebar">
+            <dialog id="newProjectDialog">
+                <form>
+                    <div class="new-project-title">
+                        <label for="new-project-title">Project title:</label>
+                        <input type="text" id="new-project-title" name="new-project-title" placeholder="Brain surgery">
+                    </div>
+                    <div class="project-modal-buttons">
+                        <button id="cancelProjectButton" value="cancel">Cancel</button>
+                        <button id="createProjectButton" value="create">Create</button>
+                    </div>
+                </form>
+            </dialog>
+            <div class="project-tab-container"></div>
+            <button class="new-project">New Project</button>
+        </div>
         <div class="todo-container"></div>
     </body>
 </html>

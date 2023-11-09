@@ -35,8 +35,10 @@ cancelProjectBtn.addEventListener("click", (event) => {
 /* Create new project DOM manipulation ends */
 
 /* Dislay projects in sidebar DOM manipulation starts */
+/* Display contents of project in main area starts */
 
 const projectTabContainer = document.querySelector(".project-tab-container");
+const todoContainer = document.querySelector(".todo-container");
 
 createProjectBtn.addEventListener("click", (event) => {
     event.preventDefault(); // Do not submit form
@@ -44,9 +46,36 @@ createProjectBtn.addEventListener("click", (event) => {
     for (let project of projects) {
         let projectTab = document.createElement("div");
         projectTab.textContent = project.title;
+        // Event listener below clears the main display, 
+        // 
+        // creates a button 
+        // to add new todos to each project
+        projectTab.addEventListener("click", () => {
+            todoContainer.textContent = "";
+            // display all todos
+            //  will go here
+            const newToDoBtn = document.createElement("button");
+            newToDoBtn.textContent = "New ToDo";
+            // Get position of current project in projects
+            const projectNum = projects.indexOf(project);
+            // Add position as an attribute to button
+            newToDoBtn.setAttribute("data-project-number", projectNum);
+            // Add event listener to button to create new todo
+            // and add todo to corresponding project
+            newToDoBtn.addEventListener("click", (event) => {
+                const projectLoc = event.target.getAttribute("data-project-number");
+                // as a placeholder for a todo, add digit 1 to the project's
+                // list of todos
+                projects[projectLoc].todos.push(1);
+                console.log(`${projects[projectLoc].todos}`);
+            });
+
+            todoContainer.appendChild(newToDoBtn);
+        });
         projectTabContainer.appendChild(projectTab);
     }
 });
 
 /* Display projects in sidebar DOM manipulation ends */
+/* Display contents of projects in main area ends */
 
