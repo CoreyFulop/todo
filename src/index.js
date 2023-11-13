@@ -2,6 +2,10 @@
 
 import {projectFactory} from "./projectFactory";
 
+function todoFactory(title) {
+    return {title};
+}
+
 const projects = [];
 
 /* Create new project DOM manipulation starts */
@@ -13,6 +17,7 @@ const cancelProjectBtn = newProjectDialog.querySelector("#cancelProjectButton");
 
 newProjectButton.addEventListener("click", () => {
     newProjectDialog.showModal();
+    document.getElementById("new-project-title").value = "";
 });
 
 createProjectBtn.addEventListener("click", (event) => {
@@ -21,14 +26,10 @@ createProjectBtn.addEventListener("click", (event) => {
     let newProject = projectFactory(newProjectTitle);
     projects.push(newProject);
     newProjectDialog.close();
-    let newProjectTitleField = document.getElementById("new-project-title");
-    newProjectTitleField.value = "";
 });
 
 cancelProjectBtn.addEventListener("click", (event) => {
     event.preventDefault(); // do not submit form
-    let newProjectTitleField = document.getElementById("new-project-title");
-    newProjectTitleField.value = "";
     newProjectDialog.close();
 });
 
@@ -68,7 +69,7 @@ createProjectBtn.addEventListener("click", (event) => {
             // Add event listener to button to create new todo
             // and add todo to corresponding project
             newToDoBtn.addEventListener("click", (event) => {
-                const projectLoc = event.target.getAttribute("data-project-number");
+                let projectLoc = event.target.getAttribute("data-project-number");
                 // Display the new ToDo modal
                 newToDoDialog.showModal();
                 // create event listener
@@ -76,23 +77,24 @@ createProjectBtn.addEventListener("click", (event) => {
                 createToDoBtn.addEventListener("click", (event) => {
                     event.preventDefault(); // Do not submit form
                     let newToDoTitle = document.getElementById("new-todo-title").value;
-                    // as a placeholder for a todo factory, add digit 1 to the project's todo list
-                    projects[projectLoc].todos.push(1);
+                    let newToDo = todoFactory(newToDoTitle)
+                    projects[projectLoc].todos.push(newToDo);
                     let newToDoTitleField = document.getElementById("new-todo-title");
-                    newToDoTitleField.value = "";
                     newToDoDialog.close();
+                    newToDoTitleField.value = "";
+                    console.log(projects);
                 });
                 // create an event listener
                 // cancel new todo in case of pushing cancel
                 cancelToDoBtn.addEventListener("click", (event) => {
                     event.preventDefault(); // do not submit form
                     let newToDoTitleField = document.getElementById("new-todo-title");
-                    newToDoTitleField.value = "";
                     newToDoDialog.close();
+                    newToDoTitleField.value = "";
+                    console.log(projects);
                 });
-                console.log(projects);
+                
             });
-
             todoContainer.appendChild(newToDoBtn);
         });
         projectTabContainer.appendChild(projectTab);
